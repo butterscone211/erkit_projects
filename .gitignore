@@ -1,0 +1,5 @@
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+data/raw/          # raw downloads stay local (re-creatable, and keeps the repo small)

@@ -1,0 +1,178 @@
+# catalog.yaml: the single list of every series your projects use.
+# Add a series here once; every project can then call erkit.get("<id>").
+# freq: D daily, M monthly, Q quarterly (drives the staleness check)
+
+series:
+  # ---------- Rates (Projects 1, 5, event study E1) ----------
+  ecb_dfr:
+    source: ecb
+    key: FM/D.U2.EUR.4F.KR.DFR.LEV
+    description: ECB deposit facility rate
+    unit: "%"
+    freq: D
+  estr:
+    source: ecb
+    key: EST/B.EU000A2X2A25.WT
+    description: Euro short-term rate (€STR)
+    unit: "%"
+    freq: D
+  ea_aaa_2y:
+    source: ecb
+    key: YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_2Y
+    description: Euro area AAA government 2-year spot yield (best daily proxy for ECB expectations)
+    unit: "%"
+    freq: D
+    start: "2010-01-01"
+  ie_10y:
+    source: ecb
+    key: IRS/M.IE.L.L40.CI.0000.EUR.N.Z
+    description: Ireland 10-year government bond yield (monthly)
+    unit: "%"
+    freq: M
+  de_10y:
+    source: ecb
+    key: IRS/M.DE.L.L40.CI.0000.EUR.N.Z
+    description: Germany 10-year government bond yield (monthly)
+    unit: "%"
+    freq: M
+
+  # ---------- Irish banking (Projects 1 and 5) ----------
+  ie_hh_overnight_dep_rate:
+    source: ecb
+    key: MIR/M.IE.B.L21.A.R.A.2250.EUR.N
+    description: Ireland - rate on household overnight deposits (deposit beta input)
+    unit: "%"
+    freq: M
+  ie_hh_term_dep_rate:
+    source: ecb
+    key: MIR/M.IE.B.L22.F.R.A.2250.EUR.N
+    description: Ireland - rate on new household term deposits up to 1 year
+    unit: "%"
+    freq: M
+  ie_mortgage_rate:
+    source: ecb
+    key: MIR/M.IE.B.A2C.A.R.A.2250.EUR.N
+    description: Ireland - rate on new household loans for house purchase
+    unit: "%"
+    freq: M
+  ie_hh_deposits:
+    source: ecb
+    key: BSI/M.IE.N.A.L20.A.1.U2.2250.Z01.E
+    description: Ireland - household deposits outstanding
+    unit: EUR m
+    freq: M
+
+  ie_hh_overnight_deps:
+    source: ecb
+    key: BSI/M.IE.N.A.L21.A.1.U2.2250.Z01.E
+    description: Ireland - household overnight deposits outstanding (current accounts)
+    unit: EUR m
+    freq: M
+  ie_hh_term_deps:
+    source: ecb
+    key: BSI/M.IE.N.A.L22.A.1.U2.2250.Z01.E
+    description: Ireland - household deposits with agreed maturity outstanding (term)
+    unit: EUR m
+    freq: M
+  ie_nfc_overnight_dep_rate:
+    source: ecb
+    key: MIR/M.IE.B.L21.A.R.A.2240.EUR.N
+    description: Ireland - rate on corporate (NFC) overnight deposits
+    unit: "%"
+    freq: M
+  ie_nfc_term_dep_rate:
+    source: ecb
+    key: MIR/M.IE.B.L22.F.R.A.2240.EUR.N
+    description: Ireland - rate on new corporate (NFC) term deposits up to 1 year
+    unit: "%"
+    freq: M
+
+  # ---------- Inflation and energy (Projects 3, 5) ----------
+  ea_hicp:
+    source: eurostat
+    dataset: prc_hicp_minr
+    key: M.RCH_A.TOTAL.EA
+    description: Euro area HICP, annual % change
+    unit: "%"
+    freq: M
+  ea_hicp_energy:
+    source: eurostat
+    dataset: prc_hicp_minr
+    key: M.RCH_A.NRG.EA
+    description: Euro area HICP energy, annual % change
+    unit: "%"
+    freq: M
+  ie_hicp:
+    source: eurostat
+    dataset: prc_hicp_minr
+    key: M.RCH_A.TOTAL.IE
+    description: Ireland HICP, annual % change
+    unit: "%"
+    freq: M
+
+  # ---------- Irish real economy (Projects 2, 5) ----------
+  ie_completions_sa:
+    source: cso
+    table: NDQ01
+    filters:
+      STATISTIC Label: Seasonally Adjusted New Dwelling Completions
+      Type of House: All house types
+    time_col: Quarter
+    description: Ireland new dwelling completions, seasonally adjusted (quarterly)
+    unit: homes
+    freq: Q
+
+  # ---------- Ireland Inc. payers (Project 2) ----------
+  aapl_pretax:
+    source: edgar
+    cik: 320193
+    concept: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest
+    description: Apple - quarterly pre-tax income
+    unit: USD
+    freq: Q
+  msft_pretax:
+    source: edgar
+    cik: 789019
+    concept: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest
+    description: Microsoft - quarterly pre-tax income
+    unit: USD
+    freq: Q
+  lly_pretax:
+    source: edgar
+    cik: 59478
+    concept: IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest
+    description: Eli Lilly - quarterly pre-tax income
+    unit: USD
+    freq: Q
+
+  # ---------- Prices (Projects 1, 3, events, quant) ----------
+  px_aib:
+    source: prices
+    ticker: A5G.IR
+    description: AIB Group, Euronext Dublin close
+    unit: EUR
+    freq: D
+  px_boi:
+    source: prices
+    ticker: BIRG.IR
+    description: Bank of Ireland Group, Euronext Dublin close
+    unit: EUR
+    freq: D
+  px_ryanair:
+    source: prices
+    ticker: RYA.IR
+    description: Ryanair, Euronext Dublin close
+    unit: EUR
+    freq: D
+  px_brent:
+    source: prices
+    ticker: BZ=F
+    description: Brent crude front-month future
+    unit: USD/bbl
+    freq: D
+  px_stoxx600:
+    source: prices
+    ticker: ^STOXX
+    description: STOXX Europe 600 index
+    unit: index
+    freq: D

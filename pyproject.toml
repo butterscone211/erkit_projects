@@ -1,0 +1,26 @@
+[project]
+name = "erkit"
+version = "0.1.0"
+description = "Shared data pipeline for equity and macro research projects (free data sources)"
+requires-python = ">=3.10"
+dependencies = [
+  "pandas>=2.0",
+  "requests>=2.31",
+  "duckdb>=1.0",
+  "pyyaml>=6.0",
+  "yfinance>=0.2.40",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+app = ["streamlit>=1.40", "plotly>=5.20", "tabulate>=0.9", "matplotlib>=3.8"]
+
+[project.scripts]
+erkit = "erkit.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
